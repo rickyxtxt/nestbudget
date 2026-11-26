@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NestBudget — Household Budget Dashboard</title>
+<meta name="description" content="NestBudget: a calm, clear household budget dashboard. Track income, expenses, category budgets and savings goals — fully offline.">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="layout">
+
+  <aside class="sidebar" aria-label="Primary">
+    <div class="brand">
+      <div class="brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 24 24" width="26" height="26" fill="none" aria-hidden="true"><path d="M3 11.2 12 4l9 7.2" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M5.5 10v9.5h13V10" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M9.8 19.5v-5h4.4v5" stroke="#ffd166" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <div>
+        <p class="brand-name">NestBudget</p>
+        <p class="brand-tag">Household finance, calmly</p>
+      </div>
+    </div>
+
+    <nav class="side-nav" aria-label="Sections">
+      <a class="side-link is-active" href="#overview"><span aria-hidden="true">▦</span> Overview</a>
+      <a class="side-link" href="#budgets"><span aria-hidden="true">◔</span> Budgets</a>
+      <a class="side-link" href="#transactions"><span aria-hidden="true">⇅</span> Transactions</a>
+      <a class="side-link" href="#goals"><span aria-hidden="true">◎</span> Savings goals</a>
+    </nav>
+
+    <div class="side-card">
+      <p class="side-card-title">This month’s tip</p>
+      <p class="side-card-text">Shopping is trending over budget. Moving one planned purchase to next month keeps November in the green.</p>
+    </div>
+
+    <div class="side-foot">
+      <button id="resetDataBtn" class="btn btn-ghost-light" type="button">Reset demo data</button>
+      <p class="side-note">Works 100% offline.<br>Your data never leaves this browser.</p>
+    </div>
+  </aside>
+
+  <main class="main" id="overview">
+    <header class="topbar">
+      <div>
+        <h1>Household Budget</h1>
+        <p class="subtitle">The Prasetyo family · Jakarta, Indonesia · All amounts in Rupiah (IDR)</p>
+      </div>
+      <div class="month-nav" role="group" aria-label="Choose month">
+        <button id="prevMonthBtn" class="btn btn-icon" type="button" aria-label="Previous month">←</button>
+        <p class="month-label" id="monthLabel" aria-live="polite">November 2026</p>
+        <button id="nextMonthBtn" class="btn btn-icon" type="button" aria-label="Next month">→</button>
+      </div>
+    </header>
+
+    <section class="cards" aria-label="Monthly summary">
+      <article class="card stat">
+        <p class="stat-label">Total balance</p>
+        <p class="stat-value" id="statBalance">—</p>
+        <p class="stat-sub" id="statBalanceSub">Across all tracked months</p>
+      </article>
+      <article class="card stat">
+        <p class="stat-label">Income · <span class="stat-month">this month</span></p>
+        <p class="stat-value is-income" id="statIncome">—</p>
+        <p class="stat-sub" id="statIncomeSub">—</p>
+      </article>
+      <article class="card stat">
+        <p class="stat-label">Expenses · <span class="stat-month">this month</span></p>
+        <p class="stat-value is-expense" id="statExpense">—</p>
+        <p class="stat-sub" id="statExpenseSub">—</p>
+      </article>
+      <article class="card stat">
+        <p class="stat-label">Budget remaining</p>
+        <p class="stat-value" id="statRemaining">—</p>
+        <p class="stat-sub" id="statRemainingSub">—</p>
+      </article>
+    </section>
+
+    <section class="grid-2">
+      <article class="card chart-card">
+        <div class="card-head">
+          <h2>Expenses by category</h2>
+          <p class="card-sub" id="donutSub">This month</p>
+        </div>
+        <div class="donut-wrap">
+          <div id="donutChart" class="donut" role="img" aria-label="Donut chart of expenses by category"></div>
+          <ul class="legend" id="donutLegend"></ul>
+        </div>
+      </article>
+
+      <article class="card chart-card">
+        <div class="card-head">
+          <h2>Weekly spending</h2>
+          <p class="card-sub">Expenses per week, this month</p>
+        </div>
+        <div id="weeklyChart" class="weekly" role="img" aria-label="Bar chart of expenses per week"></div>
+        <p class="insight" id="weeklyInsight"></p>
+      </article>
+    </section>
+
+    <section class="card" id="budgets">
+      <div class="card-head">
+        <h2>Category budgets</h2>
+        <p class="card-sub">Monthly limits · bars turn amber near the limit and red when over</p>
+      </div>
+      <div class="budget-grid" id="budgetGrid"></div>
+    </section>
+
+    <section class="card" id="transactions">
+      <div class="card-head card-head-row">
+        <div>
+          <h2>Transactions</h2>
+          <p class="card-sub" id="txCount">—</p>
+        </div>
+        <button id="addTxBtn" class="btn btn-primary" type="button">+ Add transaction</button>
+      </div>
+      <div class="tx-tools">
+        <label class="field-inline">
+          <span class="sr-only">Search transactions</span>
+          <input id="txSearch" type="search" placeholder="Search description…" autocomplete="off">
+        </label>
+        <label class="field-inline">
+          <span class="sr-only">Filter by category</span>
+          <select id="txFilter"></select>
+        </label>
+      </div>
+      <ul class="tx-list" id="txList"></ul>
+      <p class="empty" id="txEmpty" hidden>No transactions match. Try another search, or add the first one for this month.</p>
+    </section>
+
+    <section class="card" id="goals">
+      <div class="card-head">
+        <h2>Savings goals</h2>
+        <p class="card-sub">Long-term targets for the household</p>
+      </div>
+      <div class="goal-grid" id="goalGrid"></div>
+    </section>
+
+    <footer class="foot">
+      <p>NestBudget · An original demo dashboard. Figures are sample data for November 2026.</p>
+    </footer>
+  </main>
+</div>
+
+<div class="modal-backdrop" id="txModal" hidden>
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="txModalTitle">
+    <h2 id="txModalTitle">Add transaction</h2>
+    <form id="txForm" novalidate>
+      <div class="seg" role="radiogroup" aria-label="Transaction type">
+        <label class="seg-opt"><input type="radio" name="txType" value="expense" checked> Expense</label>
+        <label class="seg-opt"><input type="radio" name="txType" value="income"> Income</label>
+      </div>
+      <label class="field">Description
+        <input id="txDesc" type="text" required maxlength="80" placeholder="e.g. Weekly groceries at the market">
+      </label>
+      <div class="field-row">
+        <label class="field">Amount (IDR)
+          <input id="txAmount" type="number" required min="1" step="500" inputmode="numeric" placeholder="150000">
+        </label>
+        <label class="field">Date
+          <input id="txDate" type="date" required>
+        </label>
+      </div>
+      <label class="field">Category
+        <select id="txCategory"></select>
+      </label>
+      <p class="form-error" id="txError" role="alert" hidden>Please fill in a description, a positive amount and a date.</p>
+      <div class="modal-actions">
+        <button class="btn btn-ghost" type="button" id="txCancelBtn">Cancel</button>
+        <button class="btn btn-primary" type="submit" id="txSaveBtn">Save transaction</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="modal-backdrop" id="goalModal" hidden>
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="goalModalTitle">
+    <h2 id="goalModalTitle">Add to goal</h2>
+    <p class="modal-sub" id="goalModalSub"></p>
+    <form id="goalForm" novalidate>
+      <label class="field">Amount to add (IDR)
+        <input id="goalAmount" type="number" required min="1" step="10000" inputmode="numeric" placeholder="250000">
+      </label>
+      <p class="form-error" id="goalError" role="alert" hidden>Please enter a positive amount.</p>
+      <div class="modal-actions">
+        <button class="btn btn-ghost" type="button" id="goalCancelBtn">Cancel</button>
+        <button class="btn btn-primary" type="submit">Add savings</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="modal-backdrop" id="confirmModal" hidden>
+  <div class="modal modal-sm" role="alertdialog" aria-modal="true" aria-labelledby="confirmTitle" aria-describedby="confirmText">
+    <h2 id="confirmTitle">Delete transaction?</h2>
+    <p class="modal-sub" id="confirmText"></p>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" type="button" id="confirmCancelBtn">Keep it</button>
+      <button class="btn btn-danger" type="button" id="confirmDeleteBtn">Delete</button>
+    </div>
+  </div>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
