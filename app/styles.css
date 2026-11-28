@@ -176,6 +176,34 @@ h1{margin:0;font-size:1.9rem;letter-spacing:-.3px}
 .form-error{color:var(--red);font-weight:600;margin:0 0 12px}
 .modal-actions{display:flex;justify-content:flex-end;gap:10px;margin-top:6px}
 
+/* ---------- insights & bills ---------- */
+.topbar-actions{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.mom-headline{margin:0 0 6px;font-weight:700}
+.mom-list{list-style:none;margin:0;padding:0}
+.mom-item{display:flex;align-items:center;gap:9px;padding:8px 4px;border-bottom:1px solid #f0ead9;font-size:.92rem}
+.mom-item:last-child{border-bottom:none}
+.mom-item .dot{width:11px;height:11px;border-radius:3px;flex:none}
+.mom-name{font-weight:600}
+.mom-change{margin-left:auto;font-weight:800;white-space:nowrap}
+.mom-change.is-up{color:var(--amber)}
+.mom-change.is-down{color:var(--green)}
+.mom-change.is-flat{color:var(--ink-soft)}
+.mom-amts{color:var(--ink-soft);font-size:.85rem;white-space:nowrap}
+.bill-list{list-style:none;margin:0;padding:0}
+.bill{display:flex;align-items:center;gap:14px;padding:12px 4px;border-bottom:1px solid #f0ead9}
+.bill:last-child{border-bottom:none}
+.bill-due{flex:none;width:52px;text-align:center;background:#eef4f3;border-radius:10px;padding:6px 0}
+.bill-due .d{display:block;font-weight:800;font-size:1.02rem;line-height:1.1}
+.bill-due .m{display:block;font-size:.7rem;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.5px}
+.bill-total{margin:12px 0 0;font-weight:800;text-align:right}
+.print-only{display:none}
+
+/* visible focus for form fields, mouse and keyboard alike */
+.field input:focus,.field select:focus,
+.field-inline input:focus,.field-inline select:focus{
+  border-color:var(--teal);outline:3px solid #7dd3c8;outline-offset:1px;
+}
+
 /* ---------- responsive ---------- */
 @media (max-width:1020px){
   .cards{grid-template-columns:repeat(2,1fr)}
@@ -184,6 +212,7 @@ h1{margin:0;font-size:1.9rem;letter-spacing:-.3px}
 @media (max-width:820px){
   .layout{grid-template-columns:1fr}
   .sidebar{position:static;height:auto;flex-direction:column}
+  .side-nav{flex-direction:row;flex-wrap:wrap}
   .side-foot{margin-top:0}
   .main{padding:20px 16px 32px}
   .field-row{grid-template-columns:1fr}
@@ -191,8 +220,33 @@ h1{margin:0;font-size:1.9rem;letter-spacing:-.3px}
 @media (max-width:520px){
   .cards{grid-template-columns:1fr}
   .tx{flex-wrap:wrap}
+  .tx-desc{white-space:normal}
+  .tx-actions{margin-left:auto}
+  .bill{flex-wrap:wrap}
   .donut-wrap{justify-content:center}
+  .field-inline{flex:1 1 100%}
+  .field-inline input,.field-inline select{width:100%;min-width:0}
+  .mom-item{flex-wrap:wrap}
+  .mom-change{margin-left:0}
+  .mom-amts{margin-left:auto}
+  .topbar-actions{width:100%}
+  .month-nav{flex:1;justify-content:space-between}
 }
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
+}
+
+/* ---------- print: clean one-page summary only ---------- */
+@media print{
+  @page{margin:14mm}
+  body{background:#fff}
+  .layout,.modal-backdrop{display:none !important}
+  .print-only{display:block;color:#000;font-size:12px}
+  .print-only h1{font-size:20px;margin:0 0 2px;letter-spacing:-.3px}
+  .print-only h2{font-size:14px;margin:16px 0 6px;border-bottom:2px solid #101a2c;padding-bottom:3px}
+  .print-meta{margin:0;color:#444}
+  .print-only table{width:100%;border-collapse:collapse}
+  .print-only th,.print-only td{text-align:left;padding:5px 8px;border-bottom:1px solid #ccc}
+  .print-only th.num,.print-only td.num{text-align:right}
+  .print-foot{margin-top:16px;color:#555;font-size:11px}
 }

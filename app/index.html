@@ -23,7 +23,9 @@
 
     <nav class="side-nav" aria-label="Sections">
       <a class="side-link is-active" href="#overview"><span aria-hidden="true">▦</span> Overview</a>
+      <a class="side-link" href="#insights"><span aria-hidden="true">◐</span> Insights</a>
       <a class="side-link" href="#budgets"><span aria-hidden="true">◔</span> Budgets</a>
+      <a class="side-link" href="#bills"><span aria-hidden="true">▤</span> Bills &amp; recurring</a>
       <a class="side-link" href="#transactions"><span aria-hidden="true">⇅</span> Transactions</a>
       <a class="side-link" href="#goals"><span aria-hidden="true">◎</span> Savings goals</a>
     </nav>
@@ -45,10 +47,13 @@
         <h1>Household Budget</h1>
         <p class="subtitle">The Prasetyo family · Jakarta, Indonesia · All amounts in Rupiah (IDR)</p>
       </div>
-      <div class="month-nav" role="group" aria-label="Choose month">
-        <button id="prevMonthBtn" class="btn btn-icon" type="button" aria-label="Previous month">←</button>
-        <p class="month-label" id="monthLabel" aria-live="polite">November 2026</p>
-        <button id="nextMonthBtn" class="btn btn-icon" type="button" aria-label="Next month">→</button>
+      <div class="topbar-actions">
+        <div class="month-nav" role="group" aria-label="Choose month">
+          <button id="prevMonthBtn" class="btn btn-icon" type="button" aria-label="Previous month">←</button>
+          <p class="month-label" id="monthLabel" aria-live="polite">November 2026</p>
+          <button id="nextMonthBtn" class="btn btn-icon" type="button" aria-label="Next month">→</button>
+        </div>
+        <button id="printBtn" class="btn btn-ghost" type="button">Print summary</button>
       </div>
     </header>
 
@@ -97,12 +102,35 @@
       </article>
     </section>
 
+    <section class="card" id="insights">
+      <div class="card-head">
+        <h2>Month-over-month insight</h2>
+        <p class="card-sub" id="momSub">Comparing with last month</p>
+      </div>
+      <p class="mom-headline" id="momHeadline"></p>
+      <ul class="mom-list" id="momList"></ul>
+      <p class="empty" id="momEmpty" hidden></p>
+    </section>
+
     <section class="card" id="budgets">
       <div class="card-head">
         <h2>Category budgets</h2>
         <p class="card-sub">Monthly limits · bars turn amber near the limit and red when over</p>
       </div>
       <div class="budget-grid" id="budgetGrid"></div>
+    </section>
+
+    <section class="card" id="bills">
+      <div class="card-head card-head-row">
+        <div>
+          <h2>Bills &amp; recurring</h2>
+          <p class="card-sub" id="billTotal">—</p>
+        </div>
+        <button id="addBillBtn" class="btn btn-primary" type="button">+ Add bill</button>
+      </div>
+      <ul class="bill-list" id="billList"></ul>
+      <p class="empty" id="billEmpty" hidden>No recurring bills yet. Add rent, utilities and subscriptions to see what is due each month.</p>
+      <p class="bill-total" id="billTotalRow"></p>
     </section>
 
     <section class="card" id="transactions">
@@ -136,10 +164,12 @@
     </section>
 
     <footer class="foot">
-      <p>NestBudget · An original demo dashboard. Figures are sample data for November 2026.</p>
+      <p>NestBudget · An original demo dashboard. Figures are sample data for October–November 2026.</p>
     </footer>
   </main>
 </div>
+
+<div class="print-only" id="printSummary" aria-hidden="true"></div>
 
 <div class="modal-backdrop" id="txModal" hidden>
   <div class="modal" role="dialog" aria-modal="true" aria-labelledby="txModalTitle">
@@ -184,6 +214,33 @@
       <div class="modal-actions">
         <button class="btn btn-ghost" type="button" id="goalCancelBtn">Cancel</button>
         <button class="btn btn-primary" type="submit">Add savings</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="modal-backdrop" id="billModal" hidden>
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="billModalTitle">
+    <h2 id="billModalTitle">Add bill</h2>
+    <form id="billForm" novalidate>
+      <label class="field">Bill name
+        <input id="billName" type="text" required maxlength="60" placeholder="e.g. Electricity bill (PLN)">
+      </label>
+      <div class="field-row">
+        <label class="field">Amount (IDR)
+          <input id="billAmount" type="number" required min="1" step="500" inputmode="numeric" placeholder="685000">
+        </label>
+        <label class="field">Due day of month
+          <input id="billDue" type="number" required min="1" max="31" step="1" inputmode="numeric" placeholder="5">
+        </label>
+      </div>
+      <label class="field">Category
+        <select id="billCategory"></select>
+      </label>
+      <p class="form-error" id="billError" role="alert" hidden>Please fill in a name, a positive amount and a due day between 1 and 31.</p>
+      <div class="modal-actions">
+        <button class="btn btn-ghost" type="button" id="billCancelBtn">Cancel</button>
+        <button class="btn btn-primary" type="submit">Save bill</button>
       </div>
     </form>
   </div>

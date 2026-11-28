@@ -51,7 +51,38 @@ var SEED_TXS = [
   { id: 't30', date: '2026-11-22', desc: 'Birthday gift for Mother', cat: 'belanja', type: 'expense', amount: 250000 },
   { id: 't31', date: '2026-11-23', desc: 'Groceries — weekly market run', cat: 'makanan', type: 'expense', amount: 455000 },
   { id: 't32', date: '2026-11-24', desc: 'Pet supplies — cat food & litter', cat: 'lainnya', type: 'expense', amount: 160000 },
-  { id: 't33', date: '2026-11-25', desc: 'Stationery & printing', cat: 'lainnya', type: 'expense', amount: 75000 }
+  { id: 't33', date: '2026-11-25', desc: 'Stationery & printing', cat: 'lainnya', type: 'expense', amount: 75000 },
+  /* Previous month (October 2026) — gives the month-over-month insight real data */
+  { id: 'o01', date: '2026-10-01', desc: 'Monthly salary — product studio', cat: 'income', type: 'income', amount: 18500000 },
+  { id: 'o02', date: '2026-10-14', desc: 'Freelance design project', cat: 'income', type: 'income', amount: 2400000 },
+  { id: 'o03', date: '2026-10-03', desc: 'Groceries — supermarket', cat: 'makanan', type: 'expense', amount: 520000 },
+  { id: 'o04', date: '2026-10-10', desc: 'Groceries — weekly market run', cat: 'makanan', type: 'expense', amount: 610000 },
+  { id: 'o05', date: '2026-10-12', desc: 'Family dinner — sate place', cat: 'makanan', type: 'expense', amount: 310000 },
+  { id: 'o06', date: '2026-10-17', desc: 'Groceries — weekly market run', cat: 'makanan', type: 'expense', amount: 480000 },
+  { id: 'o07', date: '2026-10-21', desc: 'Coffee beans & café meet-up', cat: 'makanan', type: 'expense', amount: 150000 },
+  { id: 'o08', date: '2026-10-24', desc: 'Fresh produce — farmers market', cat: 'makanan', type: 'expense', amount: 380000 },
+  { id: 'o09', date: '2026-10-27', desc: 'Groceries — top-up run', cat: 'makanan', type: 'expense', amount: 200000 },
+  { id: 'o10', date: '2026-10-04', desc: 'Fuel — Pertamax, full tank', cat: 'transport', type: 'expense', amount: 320000 },
+  { id: 'o11', date: '2026-10-09', desc: 'E-toll top-up', cat: 'transport', type: 'expense', amount: 200000 },
+  { id: 'o12', date: '2026-10-15', desc: 'Ride-hailing — client visit', cat: 'transport', type: 'expense', amount: 230000 },
+  { id: 'o13', date: '2026-10-22', desc: 'Fuel — Pertamax', cat: 'transport', type: 'expense', amount: 240000 },
+  { id: 'o14', date: '2026-10-26', desc: 'Parking — mall & office', cat: 'transport', type: 'expense', amount: 60000 },
+  { id: 'o15', date: '2026-10-01', desc: 'Apartment rent', cat: 'tagihan', type: 'expense', amount: 3500000 },
+  { id: 'o16', date: '2026-10-05', desc: 'Electricity bill (PLN)', cat: 'tagihan', type: 'expense', amount: 589000 },
+  { id: 'o17', date: '2026-10-05', desc: 'Water bill (PDAM)', cat: 'tagihan', type: 'expense', amount: 132000 },
+  { id: 'o18', date: '2026-10-08', desc: 'Home internet', cat: 'tagihan', type: 'expense', amount: 459000 },
+  { id: 'o19', date: '2026-10-08', desc: 'Mobile phone credit', cat: 'tagihan', type: 'expense', amount: 150000 },
+  { id: 'o20', date: '2026-10-11', desc: 'Household supplies restock', cat: 'belanja', type: 'expense', amount: 480000 },
+  { id: 'o21', date: '2026-10-18', desc: 'Clothing — batik shirt', cat: 'belanja', type: 'expense', amount: 390000 },
+  { id: 'o22', date: '2026-10-25', desc: 'Kitchenware — pans & knives', cat: 'belanja', type: 'expense', amount: 380000 },
+  { id: 'o23', date: '2026-10-06', desc: 'BPJS health insurance', cat: 'kesehatan', type: 'expense', amount: 350000 },
+  { id: 'o24', date: '2026-10-19', desc: 'Dentist — check-up & cleaning', cat: 'kesehatan', type: 'expense', amount: 170000 },
+  { id: 'o25', date: '2026-10-02', desc: 'Music & video streaming', cat: 'hiburan', type: 'expense', amount: 86000 },
+  { id: 'o26', date: '2026-10-16', desc: 'Cinema tickets for two', cat: 'hiburan', type: 'expense', amount: 150000 },
+  { id: 'o27', date: '2026-10-23', desc: 'Board games & books', cat: 'hiburan', type: 'expense', amount: 454000 },
+  { id: 'o28', date: '2026-10-07', desc: 'Donation — neighbourhood fund', cat: 'lainnya', type: 'expense', amount: 200000 },
+  { id: 'o29', date: '2026-10-20', desc: 'Pet supplies — cat food & litter', cat: 'lainnya', type: 'expense', amount: 110000 },
+  { id: 'o30', date: '2026-10-28', desc: 'Stationery & printing', cat: 'lainnya', type: 'expense', amount: 70000 }
 ];
 
 var SEED_GOALS = [
@@ -61,6 +92,18 @@ var SEED_GOALS = [
   { id: 'g4', icon: '🛠️', name: 'Kitchen renovation', target: 25000000, saved: 4000000, note: 'Saving a little every month' }
 ];
 
+/* Recurring bills — mirrors the regular Tagihan/Kesehatan/Hiburan payments
+   already visible in the transaction seed, so the panel and the ledger agree. */
+var SEED_BILLS = [
+  { id: 'b1', name: 'Apartment rent', amount: 3500000, dueDay: 1, cat: 'tagihan' },
+  { id: 'b2', name: 'Music & video streaming', amount: 86000, dueDay: 2, cat: 'hiburan' },
+  { id: 'b3', name: 'Electricity bill (PLN)', amount: 685000, dueDay: 5, cat: 'tagihan' },
+  { id: 'b4', name: 'Water bill (PDAM)', amount: 145000, dueDay: 5, cat: 'tagihan' },
+  { id: 'b5', name: 'BPJS health insurance', amount: 350000, dueDay: 6, cat: 'kesehatan' },
+  { id: 'b6', name: 'Home internet', amount: 459000, dueDay: 8, cat: 'tagihan' },
+  { id: 'b7', name: 'Mobile phone credit', amount: 150000, dueDay: 8, cat: 'tagihan' }
+];
+
 /* ---------------- State (in-memory only) ----------------
    The hosting policy forbids cookies and service workers; this demo keeps
    all state in page memory so the site works fully from the seed data and
@@ -68,14 +111,18 @@ var SEED_GOALS = [
 var state = loadState();
 var viewMonth = '2026-11';
 var editingId = null;
+var editingBillId = null;
 var pendingDeleteId = null;
+var pendingDeleteKind = 'tx';
 var activeGoalId = null;
 var txCounter = 1000;
+var billCounter = 100;
 
 function loadState() {
   return {
     txs: SEED_TXS.map(function (t) { return Object.assign({}, t); }),
-    goals: SEED_GOALS.map(function (g) { return Object.assign({}, g); })
+    goals: SEED_GOALS.map(function (g) { return Object.assign({}, g); }),
+    bills: SEED_BILLS.map(function (b) { return Object.assign({}, b); })
   };
 }
 function saveState() {
@@ -115,6 +162,17 @@ function fmtDate(dateStr) {
   var m = parseInt(dateStr.slice(5, 7), 10);
   var y = dateStr.slice(0, 4);
   return d + ' ' + MONTHS_SHORT[m - 1] + ' ' + y;
+}
+function prevMonthKey(key) {
+  var y = parseInt(key.slice(0, 4), 10);
+  var m = parseInt(key.slice(5, 7), 10) - 1;
+  if (m < 1) { m = 12; y -= 1; }
+  return y + '-' + (m < 10 ? '0' + m : '' + m);
+}
+function ordinal(n) {
+  var s = ['th', 'st', 'nd', 'rd'];
+  var v = n % 100;
+  return n + (s[(v - 20) % 10] || s[v] || s[0]);
 }
 function catById(id) {
   if (id === 'income') return INCOME_CAT;
@@ -320,14 +378,144 @@ function renderGoals() {
   document.getElementById('goalGrid').innerHTML = html;
 }
 
+/* ---------------- Month-over-month insight ---------------- */
+function renderInsight() {
+  var prevKey = prevMonthKey(viewMonth);
+  var prevList = monthTxs(prevKey);
+  var cur = catTotals(monthTxs(viewMonth));
+  var prev = catTotals(prevList);
+  var curTotal = CATEGORIES.reduce(function (a, c) { return a + (cur[c.id] || 0); }, 0);
+  var prevTotal = CATEGORIES.reduce(function (a, c) { return a + (prev[c.id] || 0); }, 0);
+  var headline = document.getElementById('momHeadline');
+  var list = document.getElementById('momList');
+  var empty = document.getElementById('momEmpty');
+  document.getElementById('momSub').textContent =
+    monthLabel(viewMonth) + ' compared with ' + monthLabel(prevKey);
+  if (prevList.length === 0) {
+    headline.textContent = '';
+    list.innerHTML = '';
+    empty.hidden = false;
+    empty.textContent = 'No transactions recorded in ' + monthLabel(prevKey) +
+      ' yet, so there is nothing to compare. Add a few there and this panel comes alive.';
+    return;
+  }
+  empty.hidden = true;
+  if (prevTotal > 0) {
+    var diff = curTotal - prevTotal;
+    var pct = Math.round(diff / prevTotal * 100);
+    headline.textContent = 'Total spending is ' +
+      (diff === 0 ? 'flat' : (diff > 0 ? 'up ' + pct + '%' : 'down ' + Math.abs(pct) + '%')) +
+      ' vs ' + monthLabel(prevKey) + ' — ' + fmtIDR(curTotal) + ' against ' + fmtIDR(prevTotal) + '.';
+  } else {
+    headline.textContent = 'Spending this month is ' + fmtIDR(curTotal) +
+      '; ' + monthLabel(prevKey) + ' had no expenses recorded.';
+  }
+  var rows = [];
+  CATEGORIES.forEach(function (c) {
+    var cv = cur[c.id] || 0;
+    var pv = prev[c.id] || 0;
+    if (cv === 0 && pv === 0) return;
+    var change, cls, sortKey;
+    if (pv === 0) {
+      change = 'New this month'; cls = 'is-up'; sortKey = 1000;
+    } else {
+      var p = Math.round((cv - pv) / pv * 100);
+      if (p === 0) { change = 'No change'; cls = 'is-flat'; }
+      else if (p > 0) { change = '▲ ' + p + '%'; cls = 'is-up'; }
+      else { change = '▼ ' + Math.abs(p) + '%'; cls = 'is-down'; }
+      sortKey = Math.abs(p);
+    }
+    rows.push({
+      key: sortKey,
+      html: '<li class="mom-item"><span class="dot" style="background:' + c.color + '" aria-hidden="true"></span>' +
+        '<span class="mom-name">' + esc(c.name) + '</span>' +
+        '<span class="mom-change ' + cls + '">' + esc(change) + '</span>' +
+        '<span class="mom-amts">' + esc(fmtShort(pv)) + ' → ' + esc(fmtShort(cv)) + '</span></li>'
+    });
+  });
+  rows.sort(function (a, b) { return b.key - a.key; });
+  list.innerHTML = rows.map(function (r) { return r.html; }).join('');
+}
+
+/* ---------------- Bills & recurring ---------------- */
+function renderBills() {
+  var bills = state.bills.slice().sort(function (a, b) { return a.dueDay - b.dueDay; });
+  var total = bills.reduce(function (a, b) { return a + b.amount; }, 0);
+  document.getElementById('billTotal').textContent = bills.length === 0
+    ? 'Nothing scheduled yet'
+    : bills.length + ' recurring bills · ' + fmtIDR(total) + ' due every month';
+  document.getElementById('billTotalRow').textContent = bills.length === 0
+    ? ''
+    : 'Monthly total: ' + fmtIDR(total);
+  var html = '';
+  bills.forEach(function (b) {
+    var c = catById(b.cat);
+    html += '<li class="bill">' +
+      '<div class="bill-due" aria-hidden="true"><span class="d">' + b.dueDay + '</span><span class="m">day</span></div>' +
+      '<div class="tx-main"><p class="tx-desc">' + esc(b.name) + '</p>' +
+      '<p class="tx-cat"><span class="chip" style="background:' + c.color + '">' + esc(c.name) + '</span>' +
+      ' · Due on the ' + ordinal(b.dueDay) + ' of each month</p></div>' +
+      '<span class="tx-amt">' + esc(fmtIDR(b.amount)) + '</span>' +
+      '<span class="tx-actions">' +
+      '<button class="btn btn-ghost btn-sm" type="button" data-bill-edit="' + b.id + '" aria-label="Edit bill: ' + esc(b.name) + '">Edit</button>' +
+      '<button class="btn btn-ghost btn-sm" type="button" data-bill-del="' + b.id + '" aria-label="Delete bill: ' + esc(b.name) + '">Delete</button>' +
+      '</span></li>';
+  });
+  document.getElementById('billList').innerHTML = html;
+  document.getElementById('billEmpty').hidden = bills.length > 0;
+}
+
+/* ---------------- Print summary (print stylesheet shows only this) ---------------- */
+function renderPrint() {
+  var list = monthTxs(viewMonth);
+  var income = sumBy(list, 'income');
+  var expense = sumBy(list, 'expense');
+  var totals = catTotals(list);
+  var totalBudget = CATEGORIES.reduce(function (a, c) { return a + (BUDGETS[c.id] || 0); }, 0);
+  var billsTotal = state.bills.reduce(function (a, b) { return a + b.amount; }, 0);
+  var catRows = CATEGORIES.map(function (c) {
+    var spent = totals[c.id] || 0;
+    var budget = BUDGETS[c.id] || 0;
+    var pct = budget > 0 ? Math.round(spent / budget * 100) : 0;
+    return '<tr><td>' + esc(c.name) + '</td><td class="num">' + esc(fmtIDR(spent)) + '</td>' +
+      '<td class="num">' + esc(fmtIDR(budget)) + '</td><td class="num">' + pct + '%</td></tr>';
+  }).join('');
+  var goalRows = state.goals.map(function (g) {
+    var pct = g.target > 0 ? Math.round(g.saved / g.target * 100) : 0;
+    return '<tr><td>' + esc(g.name) + '</td><td class="num">' + esc(fmtIDR(g.saved)) + '</td>' +
+      '<td class="num">' + esc(fmtIDR(g.target)) + '</td><td class="num">' + pct + '%</td></tr>';
+  }).join('');
+  document.getElementById('printSummary').innerHTML =
+    '<h1>NestBudget — Budget summary</h1>' +
+    '<p class="print-meta">The Prasetyo family · ' + monthLabel(viewMonth) + ' · All amounts in Rupiah (IDR)</p>' +
+    '<h2>Totals</h2>' +
+    '<table><tbody>' +
+    '<tr><td>Income</td><td class="num">' + esc(fmtIDR(income)) + '</td></tr>' +
+    '<tr><td>Expenses</td><td class="num">' + esc(fmtIDR(expense)) + '</td></tr>' +
+    '<tr><td>Net this month</td><td class="num">' + esc(fmtIDR(income - expense)) + '</td></tr>' +
+    '<tr><td>Budget remaining</td><td class="num">' + esc(fmtIDR(totalBudget - expense)) + '</td></tr>' +
+    '<tr><td>Recurring bills per month</td><td class="num">' + esc(fmtIDR(billsTotal)) + '</td></tr>' +
+    '</tbody></table>' +
+    '<h2>Spending by category</h2>' +
+    '<table><thead><tr><th>Category</th><th class="num">Spent</th><th class="num">Budget</th><th class="num">Used</th></tr></thead>' +
+    '<tbody>' + catRows + '</tbody></table>' +
+    '<h2>Savings goals</h2>' +
+    '<table><thead><tr><th>Goal</th><th class="num">Saved</th><th class="num">Target</th><th class="num">Progress</th></tr></thead>' +
+    '<tbody>' + goalRows + '</tbody></table>' +
+    '<p class="print-foot">Generated from the NestBudget dashboard · Demo data · Works fully offline.</p>';
+}
+
 /* ---------------- Render all ---------------- */
 function renderAll() {
   renderSummary();
   renderDonut();
   renderWeekly();
+  renderInsight();
   renderBudgets();
+  renderBills();
   renderTxs();
   renderGoals();
+  renderPrint();
 }
 
 /* ---------------- Modals ---------------- */
@@ -396,6 +584,8 @@ function onTxSubmit(ev) {
 }
 function askDelete(id) {
   pendingDeleteId = id;
+  pendingDeleteKind = 'tx';
+  document.getElementById('confirmTitle').textContent = 'Delete transaction?';
   var tx = state.txs.filter(function (t) { return t.id === id; })[0];
   document.getElementById('confirmText').textContent = tx
     ? '“' + tx.desc + '” (' + fmtIDR(tx.amount) + ', ' + fmtDate(tx.date) + ') will be removed. This cannot be undone.'
@@ -423,6 +613,55 @@ function onGoalSubmit(ev) {
   renderAll();
 }
 
+/* ---------------- Bill modal ---------------- */
+function fillBillCategories() {
+  document.getElementById('billCategory').innerHTML = CATEGORIES.map(function (c) {
+    return '<option value="' + c.id + '">' + esc(c.name) + '</option>';
+  }).join('');
+}
+function openBillModal(bill) {
+  editingBillId = bill ? bill.id : null;
+  document.getElementById('billModalTitle').textContent = bill ? 'Edit bill' : 'Add bill';
+  document.getElementById('billError').hidden = true;
+  document.getElementById('billName').value = bill ? bill.name : '';
+  document.getElementById('billAmount').value = bill ? bill.amount : '';
+  document.getElementById('billDue').value = bill ? bill.dueDay : 1;
+  document.getElementById('billCategory').value = bill ? bill.cat : 'tagihan';
+  openModal('billModal');
+}
+function onBillSubmit(ev) {
+  ev.preventDefault();
+  var name = document.getElementById('billName').value.trim();
+  var amount = parseInt(document.getElementById('billAmount').value, 10);
+  var due = parseInt(document.getElementById('billDue').value, 10);
+  var cat = document.getElementById('billCategory').value;
+  if (!name || !amount || amount <= 0 || !due || due < 1 || due > 31) {
+    document.getElementById('billError').hidden = false;
+    return;
+  }
+  if (editingBillId) {
+    state.bills.forEach(function (b) {
+      if (b.id === editingBillId) { b.name = name; b.amount = amount; b.dueDay = due; b.cat = cat; }
+    });
+  } else {
+    billCounter += 1;
+    state.bills.push({ id: 'b' + billCounter, name: name, amount: amount, dueDay: due, cat: cat });
+  }
+  saveState();
+  closeModal('billModal');
+  renderAll();
+}
+function askDeleteBill(id) {
+  pendingDeleteId = id;
+  pendingDeleteKind = 'bill';
+  document.getElementById('confirmTitle').textContent = 'Delete bill?';
+  var bill = state.bills.filter(function (b) { return b.id === id; })[0];
+  document.getElementById('confirmText').textContent = bill
+    ? '“' + bill.name + '” (' + fmtIDR(bill.amount) + ', due on the ' + ordinal(bill.dueDay) + ') will be removed from the recurring list. This cannot be undone.'
+    : '';
+  openModal('confirmModal');
+}
+
 /* ---------------- Month navigation ---------------- */
 function shiftMonth(delta) {
   var y = parseInt(viewMonth.slice(0, 4), 10);
@@ -437,6 +676,7 @@ function shiftMonth(delta) {
 function init() {
   fillCategorySelect(document.getElementById('txCategory'), false);
   fillCategorySelect(document.getElementById('txFilter'), true);
+  fillBillCategories();
 
   document.getElementById('addTxBtn').addEventListener('click', function () { openTxModal(null); });
   document.getElementById('txForm').addEventListener('submit', onTxSubmit);
@@ -444,12 +684,27 @@ function init() {
   document.querySelectorAll('input[name="txType"]').forEach(function (r) {
     r.addEventListener('change', syncCategoryState);
   });
+  document.getElementById('addBillBtn').addEventListener('click', function () { openBillModal(null); });
+  document.getElementById('billForm').addEventListener('submit', onBillSubmit);
+  document.getElementById('billCancelBtn').addEventListener('click', function () { closeModal('billModal'); });
+  document.getElementById('billList').addEventListener('click', function (ev) {
+    var editId = ev.target.getAttribute('data-bill-edit');
+    var delId = ev.target.getAttribute('data-bill-del');
+    if (editId) openBillModal(state.bills.filter(function (b) { return b.id === editId; })[0]);
+    if (delId) askDeleteBill(delId);
+  });
+  document.getElementById('printBtn').addEventListener('click', function () { window.print(); });
   document.getElementById('goalForm').addEventListener('submit', onGoalSubmit);
   document.getElementById('goalCancelBtn').addEventListener('click', function () { closeModal('goalModal'); });
   document.getElementById('confirmCancelBtn').addEventListener('click', function () { closeModal('confirmModal'); });
   document.getElementById('confirmDeleteBtn').addEventListener('click', function () {
-    state.txs = state.txs.filter(function (t) { return t.id !== pendingDeleteId; });
+    if (pendingDeleteKind === 'bill') {
+      state.bills = state.bills.filter(function (b) { return b.id !== pendingDeleteId; });
+    } else {
+      state.txs = state.txs.filter(function (t) { return t.id !== pendingDeleteId; });
+    }
     pendingDeleteId = null;
+    pendingDeleteKind = 'tx';
     saveState();
     closeModal('confirmModal');
     renderAll();
